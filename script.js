@@ -5,6 +5,7 @@ let lockBoard = false;
 
 function flipCard() {
     if(lockBoard) return;
+    if(this === firstCard) return;
     this.classList.add('flip');
     if(!hasFlippedCard) {
         hasFlippedCard = true;
@@ -29,6 +30,7 @@ function checkForMath() {
 function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
+    resetBoard();
 }
 
 function unflipCard() {
@@ -36,9 +38,21 @@ function unflipCard() {
     setTimeout(() => {
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
-        lockBoard = false;
+        resetBoard();
     }, 1500);
 }
+
+function resetBoard() {
+    [hasFlippedCard, lockBoard] = [false, false];
+    [firstCard, secondCard] = [null, null];
+}
+
+(function shuffle() {
+    cards.forEach((card) => {
+        let randomPosition = Math.floor(Math.random() * 12);
+        card.style.order = randomPosition;
+    })
+})(); //imediatily function, funçao que é criada e chamada logo em seguida
 
 cards.forEach((card) => {
     card.addEventListener('click', flipCard);
