@@ -29,6 +29,13 @@ function disableCards() {
     secondCard.removeEventListener('click', flipCard);
 }
 
+function unflipCard() {
+    setTimeout(() => {
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+    }, 1500);
+}
+
 cards.forEach((card) => {
     card.addEventListener('click', flipCard);
 })
